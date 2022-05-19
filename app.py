@@ -4,9 +4,14 @@ app = Flask(__name__)
 from pymongo import MongoClient
 import certifi
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 ca = certifi.where()
 
-client = MongoClient('mongodb+srv://Olivia:darong0816@cluster0.9vxwb.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
+DB_URL = os.environ.get("DB_URL")
+client = MongoClient(DB_URL, tlsCAFile=ca)
 db = client.dbsparta
 
 @app.route('/')
